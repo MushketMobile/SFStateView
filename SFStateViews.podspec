@@ -1,4 +1,4 @@
-od::Spec.new do |s|
+Pod::Spec.new do |s|
 
   s.name         = "SFStateViews"
   s.version      = "0.0.1"
