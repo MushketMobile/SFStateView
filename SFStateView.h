@@ -22,7 +22,6 @@
  */
 @interface SFStateView : UIView {
  @protected
-   __unsafe_unretained id<SFStateViewDelegate> _delegate;
    IBOutlet UIView *_contentView;
    BOOL _keepStateViewBackgroundColor;
    CGFloat _showDuration;
@@ -30,7 +29,7 @@
 }
 
 @property (readonly) UIView *contentView;
-@property (assign, nonatomic) id<SFStateViewDelegate> delegate;
+@property (weak, nonatomic) id<SFStateViewDelegate> delegate;
 @property (assign, nonatomic) BOOL keepStateViewBackgroundColor;
 @property (assign, nonatomic) CGFloat showDuration;
 @property (assign, nonatomic) CGFloat hideDuration;

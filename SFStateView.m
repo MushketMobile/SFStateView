@@ -131,7 +131,8 @@ static const NSInteger _kStateViewRemovingTag = -501;
    // Prepare state view
    [self willShow];
    
-   // Show state view
+    // Show state view
+    __weak typeof(self) weakSelf = self;
    [UIView animateWithDuration:[self showDuration] 
                          delay:0 
                        options:UIViewAnimationOptionBeginFromCurrentState
@@ -141,8 +142,8 @@ static const NSInteger _kStateViewRemovingTag = -501;
                     } completion:^(BOOL finished) {
                        if (finished) {
                           // Inform delegate that state view did show
-                          if (self.delegate && [self.delegate respondsToSelector:@selector(stateViewDidShow:)]) {
-                             [self.delegate performSelector:@selector(stateViewDidShow:) withObject:self];
+                          if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stateViewDidShow:)]) {
+                             [weakSelf.delegate performSelector:@selector(stateViewDidShow:) withObject:weakSelf];
                           }
                        }
                     }];
@@ -156,21 +157,22 @@ static const NSInteger _kStateViewRemovingTag = -501;
    self.tag = _kStateViewRemovingTag;
    
    // Hide state view
+    __weak typeof(self) weakSelf = self;
    [UIView animateWithDuration:[self hideDuration] 
                          delay:0 
                        options:UIViewAnimationOptionBeginFromCurrentState
                     animations:^{
                        // Configurate state view for hidden state
-                       [self didHide];
+                       [weakSelf didHide];
                     } completion:^(BOOL finished) {
                        if (finished) {
                           // Inform delegate that state view did hide
-                          if (self.delegate && [self.delegate respondsToSelector:@selector(stateViewDidHide:)]) {
-                             [self.delegate performSelector:@selector(stateViewDidHide:) withObject:self];
+                          if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(stateViewDidHide:)]) {
+                             [weakSelf.delegate performSelector:@selector(stateViewDidHide:) withObject:weakSelf];
                           }
                        
                           // Remove state view from superview
-                          [self removeFromSuperview];
+                          [weakSelf removeFromSuperview];
                        }
                     }];
 }
